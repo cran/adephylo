@@ -1,0 +1,68 @@
+\name{distTips}
+\alias{distTips}
+\title{Compute some phylogenetic distance between tips}
+\description{
+  The function \code{distTips} computes a given distance between a set
+  of tips of a phylogeny. A vector of tips is supplied: distances
+  between all possible pairs of these tips are computed.
+  The distances are computed from the shortest path
+  between the tips. Several distances can be used, defaulting to the
+  sum of branch lengths (see argument \code{method}).
+}
+\usage{
+distTips(x, tips, method=c("patristic","nNodes","Abouheif","sumDD"))
+}
+\arguments{
+  \item{x}{a tree of  class \code{\link[ape:read.tree]{phylo}},
+    \linkS4class{phylo4} or \linkS4class{phylo4d}.}
+  \item{tips}{A vector of integers identifying tips by their numbers, or
+    a vector of characters identifying tips by their names. Distances
+    will be computed between all possible pairs of tips.}
+  \item{method}{a character string (full or abbreviated without
+    ambiguity) specifying the method used to compute distances ;
+    possible values are:\cr
+    - \code{patristic}: patristic distance, i.e. sum of branch lengths \cr
+    - \code{nNodes}: number of nodes on the path between the nodes \cr
+    - \code{Abouheif}: Abouheif's distance (see details) \cr
+    - \code{sumDD}: sum of direct descendants of all nodes on the path
+    (see details) \cr
+   }
+}
+\value{
+  An object of class \code{dist}, containing phylogenetic distances.
+}
+\details{
+  \code{Abouheif} distance refers to the phylogenetic distance
+  underlying the test of Abouheif (see references). Let P be the set of
+  all the nodes in the path going from \code{node1} to \code{node2}. Let
+  DDP be the number of direct descendants from each node in P. Then, the
+  so-called 'Abouheif' distance is the product of all terms in DDP.\cr
+
+   \code{sumDD} refers to a phylogenetic distance quite similar to that
+  of Abouheif. We consider the same sets P and DDP. But instead of
+  computing the product of all terms in DDP, this distance computes the
+  sum of all terms in DDP.
+}
+\author{ Thibaut Jombart \email{tjombart@imperial.ac.uk} }
+\seealso{\code{\link{distTips}} which computes several phylogenetic
+  distances between tips.
+}
+\references{
+  Pavoine, S.; Ollier, S.; Pontier, D. & Chessel, D. (2008) Testing for
+  phylogenetic signal in life history variable: Abouheif's test
+  revisited. \emph{Theoretical Population Biology}: \bold{73}, 79-91.
+}
+\examples{
+if(require(ape) & require(phylobase)){
+## make a tree
+x <- as(rtree(10),"phylo4")
+plot(x, show.node=TRUE)
+axisPhylo()
+## compute different distances
+distTips(x, 1:3)
+distTips(x, 1:3, "nNodes")
+distTips(x, 1:3, "Abouheif")
+distTips(x, 1:3, "sumDD")
+}
+}
+\keyword{manip}

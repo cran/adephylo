@@ -1,0 +1,20 @@
+			CHANGES IN ADEPHYLO VERSION 1.0-1
+
+
+NEW FEATURES
+
+	o first release on CRAN, compatible with the first stable release
+	of phylobase
+
+
+NEW FEATURES
+
+	o first release of the package with unstable status. Compatible
+	with phylobase (in	development) and ape packages; package
+	only released on R-Forge, not CRAN.
+
+	o re-implements all phylogenetic methods and datasets available in ade4
+
+	o add new features to compute phylogenetic distances/proximities,
+	pPCA, tree walks, ... 
+
