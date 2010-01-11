@@ -130,15 +130,15 @@
   \tabular{ll}{
     Package: \tab adephylo\cr
     Type: \tab Package\cr
-    Version: \tab 1.0-1\cr
-    Date: \tab 2009-11-05 \cr
+    Version: \tab 1.0-2\cr
+    Date: \tab 2009-01-11 \cr
     License: \tab GPL (>=2)
   }  
 }
 \author{
   Thibaut Jombart <tjombart@imperial.ac.uk>\cr
-  Stéphane Dray <dray@biomserv.univ-lyon1.fr>. \cr
-  Occasional bits of former code from \code{ade4} by Daniel Chessel and Sébastien Ollier.
+  with contributions Stéphane Dray <dray@biomserv.univ-lyon1.fr>. \cr
+  Parts of former code from \code{ade4} by Daniel Chessel and Sébastien Ollier.
 }
 \keyword{manip}
 \keyword{multivariate}
