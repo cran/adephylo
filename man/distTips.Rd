@@ -4,13 +4,18 @@
 \description{
   The function \code{distTips} computes a given distance between a set
   of tips of a phylogeny. A vector of tips is supplied: distances
-  between all possible pairs of these tips are computed.
-  The distances are computed from the shortest path
-  between the tips. Several distances can be used, defaulting to the
-  sum of branch lengths (see argument \code{method}).
+  between all possible pairs of these tips are computed.  The distances
+  are computed from the shortest path between the tips. Several
+  distances can be used, defaulting to the sum of branch lengths (see
+  argument \code{method}).
+
+  An option (enabled by default) allows computations to be run using
+  compiled C code, which is much faster than pure R code. In this case,
+  a matrix of all pairwise distances is returned (i.e., \code{tips}
+  argument is ignored).
 }
 \usage{
-distTips(x, tips, method=c("patristic","nNodes","Abouheif","sumDD"))
+distTips(x, tips, method=c("patristic","nNodes","Abouheif","sumDD"), useC=TRUE)
 }
 \arguments{
   \item{x}{a tree of  class \code{\link[ape:read.tree]{phylo}},
@@ -26,7 +31,12 @@ distTips(x, tips, method=c("patristic","nNodes","Abouheif","sumDD"))
     - \code{Abouheif}: Abouheif's distance (see details) \cr
     - \code{sumDD}: sum of direct descendants of all nodes on the path
     (see details) \cr
-   }
+  }
+  \item{useC}{a logical indicating whether computations should be
+    performed using compiled C code (TRUE, default), or using a pure R version
+    (FALSE). C version is several orders of magnitude faster, and R
+    version is kept for backward compatibility.
+  }
 }
 \value{
   An object of class \code{dist}, containing phylogenetic distances.
@@ -63,6 +73,19 @@ distTips(x, 1:3)
 distTips(x, 1:3, "nNodes")
 distTips(x, 1:3, "Abouheif")
 distTips(x, 1:3, "sumDD")
+
+## compare C and pure R code outputs
+x <- rtree(10)
+all.equal(as.matrix(distTips(x)), as.matrix(distTips(x, useC=FALSE)))
+all.equal(as.matrix(distTips(x, meth="nNode")), as.matrix(distTips(x, meth="nNode", useC=FALSE)))
+all.equal(as.matrix(distTips(x, meth="Abou")), as.matrix(distTips(x, meth="Abou", useC=FALSE)))
+all.equal(as.matrix(distTips(x, meth="sumDD")), as.matrix(distTips(x, meth="sumDD", useC=FALSE)))
+
+## compare speed
+x <- rtree(50)
+tim1 <- system.time(distTips(x, useC=FALSE)) # old pure R version
+tim2 <- system.time(distTips(x)) # new version using C
+tim1[c(1,3)]/tim2[c(1,3)] # C is about a thousand time faster in this case
 }
 }
 \keyword{manip}
