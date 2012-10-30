@@ -17,7 +17,7 @@
 #include <R_ext/Utils.h>
 #include "adesub.h"
 #include "sptips.h"
-
+#include <R_ext/Print.h>
 
 /* 
    =============================
@@ -41,8 +41,9 @@ double findedgelength(int *desc, double *brlength, int N, int myNode){
 	posi = intAinB(myNode, desc, N);
 
 	if(posi==0){
-		printf("\n Likely error in findedgelength: edge not found");
-		return(0.0);
+	    Rprintf("\n Likely error in findedgelength: edge not found");
+	    /* printf("\n Likely error in findedgelength: edge not found"); */
+	    return(0.0);
 	}
 
 	/* return corresponding length */
@@ -71,7 +72,8 @@ int findNbDD(int *ances, int *desc, int N, int myNode){
 	}
 
 	if(nbDD==0){
-		printf("\n Likely error in findNbDD: no direct descendent found.\n");
+	    Rprintf("\n Likely error in findNbDD: no direct descendent found.\n");
+	    /* printf("\n Likely error in findNbDD: no direct descendent found.\n"); */
 	}
 
 	/* return corresponding length */
@@ -182,7 +184,8 @@ double dist2tips(int *ances, int *desc, double *brlength, int N, int tipA, int t
 
 	 default :
 		 res=0.0;
-		 printf("\n\n Likely error in dist2tips: unknown method (%d):", method);
+		 Rprintf("\n\n Likely error in dist2tips: unknown method (%d):", method);
+		 /* printf("\n\n Likely error in dist2tips: unknown method (%d):", method); */
 		 break;
 	 }
 
@@ -224,7 +227,8 @@ void distalltips(int *ances, int *desc, double *brlength, int *N, int *nTips, do
 	/* check resSize */
 	temp = (*nTips) * (*nTips-1) / 2;
 	if(*resSize !=  temp) {
-		printf("\n Likely error in distalltips: resSize is %d, and should be %d.\n", *resSize, temp);
+	    Rprintf("\n Likely error in distalltips: resSize is %d, and should be %d.\n", *resSize, temp);
+	    /* printf("\n Likely error in distalltips: resSize is %d, and should be %d.\n", *resSize, temp); */
 		return;
 	}
 
@@ -263,6 +267,60 @@ void distalltips(int *ances, int *desc, double *brlength, int *N, int *nTips, do
 	freevec(brlengthLoc);
 
 } /* end distalltips */
+
+
+
+
+
+
+
+/* /\* === FIND DISTANCES BETWEEN GIVEN PAIRS OF TIPS === *\/ */
+/* /\* === THIS HAS NOT BEEN TESTED === *\/ */
+/* void distpairtips(int *ances, int *desc, double *brlength, int *N, int *nTips, double *res, int *resSize, int *method, int *tipsA, int *tipsB){ */
+/* 	/\* declarations *\/ */
+/* 	int i, j, k, temp; */
+/* 	int *ancesLoc, *descLoc; /\* must use dynamic allocation *\/ */
+/* 	double *brlengthLoc; /\* must use dynamic allocation *\/ */
+
+/* 	/\* check resSize *\/ */
+/* 	temp = (*nTips) * (*nTips-1) / 2; */
+/* 	if(*resSize !=  temp) { */
+/* 		printf("\n Likely error in distalltips: resSize is %d, and should be %d.\n", *resSize, temp); */
+/* 		return; */
+/* 	} */
+
+
+/* 	/\* allocate memory for local variables *\/ */
+/* 	vecintalloc(&ancesLoc, *N); */
+/* 	vecintalloc(&descLoc, *N); */
+/* 	vecalloc(&brlengthLoc, *N); */
+
+
+/* 	/\* create local vectors for ancestors, descendents and branch lengths *\/ */
+/* 	ancesLoc[0] = *N; */
+/* 	descLoc[0] = *N; */
+/* 	brlengthLoc[0] = *N ; /\* implicit casting int->double *\/ */
+/* 	for(i=0; i< *N; i++){ */
+/* 		ancesLoc[i+1] = ances[i]; */
+/* 		descLoc[i+1] = desc[i]; */
+/* 		brlengthLoc[i+1] = brlength[i]; */
+/* 	} */
+
+
+/* 	/\* perform computations for all pairs of tips (indexed 'i,j') *\/ */
+/* 	k = 0; /\* used to browse 'res' *\/ */
+
+/* 	for(i=0; i<*resSize; i++){ */
+/* 		res[k++] = dist2tips(ancesLoc, descLoc, brlengthLoc, *N, tipsA[i], tipsB[j], *method); */
+/* 		/\*printf("\nDistance between tip %d and %d in main function: %f", i, j, res[k]);*\/ */
+/* 	} */
+
+/* 	/\* free memory *\/ */
+/* 	freeintvec(ancesLoc); */
+/* 	freeintvec(descLoc); */
+/* 	freevec(brlengthLoc); */
+
+/* } /\* end distpairtips *\/ */
 
 
 
