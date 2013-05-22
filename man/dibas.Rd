@@ -4,6 +4,7 @@
 \alias{dibas.matrix}
 \alias{dibas.dist}
 \alias{dibas.phylo}
+\alias{dibas.vector}
 \alias{simDatGroups}
 \title{DIstance-Based Assignment}
 \description{
@@ -12,11 +13,15 @@
 }
 \usage{
 \method{dibas}{phylo}(x, grp, method = c("default", "leaveOneOut"),
-      metric = c("Abouheif", "nNodes", "patristic", "sumDD"), \ldots)
+      fromRoot=FALSE, metric = c("Abouheif", "nNodes", "patristic","sumDD"),
+      n.items=NULL, \ldots)
 
 \method{dibas}{matrix}(x, grp, method = c("default", "leaveOneOut"), \ldots)
 
 \method{dibas}{dist}(x, grp, method = c("default", "leaveOneOut"), \ldots)
+
+\method{dibas}{vector}(x, grp, method=c("default","leaveOneOut"),
+      n.items=NULL, \ldots)
 
 }
 \arguments{
@@ -33,6 +38,12 @@
     \code{\link{distTips}} for more information. Note that patristic
     distances should be avoided in presence of one or more highly
     diverse group because of the 'hand fan' syndrome (see example).}
+  \item{fromRoot}{a logical indicating if distances from the root,
+    rather than between groups, should be used.}
+  \item{n.items}{a vector of integers of the same length as x, stating
+    how many times each items in 'x' should be repeated; used to take
+    into account differences in abundances of the different items
+    (e.g. sequences in multiple copies).}
   \item{\dots}{further arguments passed to other methods. Can be used to
     provide arguments to \code{\link{table.phylo4d}} in \code{plot} method.}
 }
@@ -47,7 +58,8 @@ names(dat)
 
 ## make a tree
 tre <- nj(dist(dat$dat))
-plot(tre,type="unr", tip.col=c("blue","red")[as.integer(dat$grp)],main="simulated data - tree")
+plot(tre,type="unr", tip.col=c("blue","red")[as.integer(dat$grp)],
+   main="simulated data - tree")
  
 ## use dibas method
 res <- dibas(tre, dat$grp, metric="nNodes")
@@ -59,11 +71,13 @@ barplot(t(res$prob), main="group membership probabilities")
 
 #### NON-PARAMETRIC TEST BASED ON MEAN SUCCESSFUL ASSIGNMENT ####
 ## use dibas method
-distHo <- replicate(100, dibas(tre, sample(dat$grp), metric="patristic")$mean.ok)
+distHo <- replicate(100,
+   dibas(tre, sample(dat$grp), metric="patristic")$mean.ok)
 pval <- mean(res$mean.ok<=c(distHo,res$mean.ok))
 pval
 
-hist(c(distHo,res$mean.ok), col="grey", main="Mean successful assignement - permuted values")
+hist(c(distHo,res$mean.ok), col="grey",
+   main="Mean successful assignement - permuted values")
 abline(v=res$mean.ok, col="red")
 mtext(side=3, text="Observed value in red")
 
@@ -76,7 +90,8 @@ names(dat)
 
 ## make a tree
 tre <- nj(dist(dat$dat))
-plot(tre,type="unr", tip.col=c("blue","red")[as.integer(dat$grp)],main="simulated data - tree")
+plot(tre,type="unr", tip.col=c("blue","red")[as.integer(dat$grp)],
+   main="simulated data - tree")
 mtext(side=3, text="hand-fan syndrome")
 
 ## use dibas method
@@ -94,7 +109,8 @@ plot(table(res$groups), main="Group assignment - dibas nNodes")
 #### MORE COMPLEX DATASET ####
 if(require(adegenet)){
 
-dat <- simDatGroups(k=5, p=50, n=c(5,10,10,30,60), mu=sample(1:5, 5, replace=TRUE), sigma=sample(1:5)/2)
+dat <- simDatGroups(k=5, p=50, n=c(5,10,10,30,60), mu=sample(1:5, 5,
+   replace=TRUE), sigma=sample(1:5)/2)
 names(dat)
 
 ## make a tree
