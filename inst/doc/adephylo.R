@@ -10,6 +10,9 @@
 ###################################################
 ### code chunk number 2: load
 ###################################################
+library(ape)
+library(phylobase)
+library(ade4)
 library(adephylo)
 search()
 
@@ -26,19 +29,19 @@ args(orthogram)
 
 
 ###################################################
-### code chunk number 4: adephylo.Rnw:165-166 (eval = FALSE)
+### code chunk number 4: adephylo.Rnw:168-169 (eval = FALSE)
 ###################################################
 ## ?adephylo
 
 
 ###################################################
-### code chunk number 5: adephylo.Rnw:171-172 (eval = FALSE)
+### code chunk number 5: adephylo.Rnw:174-175 (eval = FALSE)
 ###################################################
 ## help("adephylo", package="adephylo", html=TRUE)
 
 
 ###################################################
-### code chunk number 6: adephylo.Rnw:176-177 (eval = FALSE)
+### code chunk number 6: adephylo.Rnw:179-180 (eval = FALSE)
 ###################################################
 ## options(htmlhelp = FALSE)
 
@@ -54,7 +57,7 @@ plot(myTree, main="ape's plotting of a tree")
 
 
 ###################################################
-### code chunk number 8: adephylo.Rnw:223-228
+### code chunk number 8: adephylo.Rnw:226-231
 ###################################################
 temp <- as(myTree, "phylo4")
 class(temp)
@@ -72,7 +75,7 @@ table.phylo4d(ung)
 
 
 ###################################################
-### code chunk number 10: adephylo.Rnw:268-270
+### code chunk number 10: adephylo.Rnw:271-273
 ###################################################
 x <- tdata(ung, type="tip")
 head(x)
@@ -87,7 +90,7 @@ moran.idx(tdata(ung, type="tip")[,1], W, addInfo=TRUE)
 
 
 ###################################################
-### code chunk number 12: adephylo.Rnw:317-329
+### code chunk number 12: adephylo.Rnw:320-332
 ###################################################
 afbw <- tdata(ung, type="tip")$afbw
 sim <- replicate(499, moran.idx(sample(afbw), W)) # permutations
@@ -112,42 +115,42 @@ plot(ung.abTests)
 
 
 ###################################################
-### code chunk number 14: adephylo.Rnw:373-375
+### code chunk number 14: adephylo.Rnw:376-378
 ###################################################
 hasEdgeLength(ung)
 myTree.withBrLe <- compute.brlen(myTree)
 
 
 ###################################################
-### code chunk number 15: adephylo.Rnw:381-383
+### code chunk number 15: adephylo.Rnw:384-386
 ###################################################
 myProx <- vcv.phylo(myTree.withBrLe)
 abouheif.moran(ung, W=myProx)
 
 
 ###################################################
-### code chunk number 16: adephylo.Rnw:410-412
+### code chunk number 16: adephylo.Rnw:413-415
 ###################################################
 x <- as(rtree(5),"phylo4")
 plot(x,show.n=TRUE)
 
 
 ###################################################
-### code chunk number 17: adephylo.Rnw:415-417
+### code chunk number 17: adephylo.Rnw:418-420
 ###################################################
 x.part <- treePart(x)
 x.part
 
 
 ###################################################
-### code chunk number 18: adephylo.Rnw:420-422
+### code chunk number 18: adephylo.Rnw:423-425
 ###################################################
 temp <- phylo4d(x, x.part)
 table.phylo4d(temp, cent=FALSE, scale=FALSE)
 
 
 ###################################################
-### code chunk number 19: adephylo.Rnw:432-434
+### code chunk number 19: adephylo.Rnw:435-437
 ###################################################
 args(treePart)
 temp <- phylo4d(x, treePart(x, result="orthobasis") )
@@ -169,7 +172,7 @@ afbw.ortgTest
 
 
 ###################################################
-### code chunk number 22: adephylo.Rnw:480-481
+### code chunk number 22: adephylo.Rnw:483-484
 ###################################################
 me.phylo(myTree.withBrLe)
 
@@ -210,7 +213,7 @@ table.phylo4d(temp)
 
 
 ###################################################
-### code chunk number 26: adephylo.Rnw:534-541
+### code chunk number 26: adephylo.Rnw:537-544
 ###################################################
 myBasis <- me.phylo(myTree, method="Abouheif")
 lm2 <- lm(neonatw~myBasis[,1] + afbw)
@@ -222,7 +225,7 @@ anova(lm2)
 
 
 ###################################################
-### code chunk number 27: adephylo.Rnw:567-572
+### code chunk number 27: adephylo.Rnw:570-575
 ###################################################
 W <- proxTips(myTree, method="Abouheif", sym=FALSE)
 lagNeonatw <- W %*% neonatw

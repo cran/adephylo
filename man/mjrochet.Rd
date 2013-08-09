@@ -44,6 +44,9 @@ patterns of teleos fishes.  \emph{Oïkos}, \bold{91}, 255--270.
   This dataset replaces the former version in ade4.
 }
 \examples{
+\dontrun{
+if(require(ape) && require(phylobase)){
+
 data(mjrochet)
 tre <- read.tree(text=mjrochet$tre) # make a tree
 traits <- log((mjrochet$tab))
@@ -57,7 +60,8 @@ table.phylo4d(mjr,cex.lab=.5,show.node=FALSE,symb="square")
 ## perform Abouheif's test for each trait
 mjr.tests <- abouheif.moran(mjr, nrep=499)
 mjr.tests
-plot(mjr.tests)
 
+}
+}
 }
 \keyword{datasets}

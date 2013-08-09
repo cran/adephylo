@@ -137,7 +137,7 @@
     Package: \tab adephylo\cr
     Type: \tab Package\cr
     Version: \tab 1.1-4\cr
-    Date: \tab 2013-05-22 \cr
+    Date: \tab 2013-05-15 \cr
     License: \tab GPL (>=2)
   }  
 }
