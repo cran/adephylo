@@ -1,5 +1,4 @@
 ### R code from vignette source 'adephylo.Rnw'
-### Encoding: UTF-8
 
 ###################################################
 ### code chunk number 1: adephylo.Rnw:106-107 (eval = FALSE)
