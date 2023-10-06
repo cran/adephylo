@@ -110,8 +110,7 @@
 #' To cite adephylo, please use the reference given by
 #' \code{citation("adephylo")}.
 #' 
-#' \tabular{ll}{ Package: \tab adephylo\cr Type: \tab Package\cr Version: \tab
-#' 1.1-7\cr Date: \tab 2014-11-10 \cr License: \tab GPL (>=2) }
+#' \tabular{ll}{ Package: \tab adephylo\cr Type: \tab Package\cr License: \tab GPL (>=2) }
 #' 
 #' @name adephylo-package
 #' @aliases adephylo-package adephylo
@@ -147,7 +146,7 @@ NULL
 #' @keywords datasets
 #' @examples
 #' 
-#' \dontrun{
+#' 
 #' if(require(ape) && require(phylobase)){
 #' 
 #' data(carni19)
@@ -155,7 +154,7 @@ NULL
 #' x <- phylo4d(tre, data.frame(carni19$bm))
 #' table.phylo4d(x, ratio=.5, center=FALSE)
 #' }
-#' }
+#' 
 #' 
 NULL
 
@@ -185,7 +184,7 @@ NULL
 #' @keywords datasets
 #' @examples
 #' 
-#' \dontrun{
+#' 
 #' if(require(ape) && require(phylobase)){
 #' 
 #' data(carni70)
@@ -194,7 +193,7 @@ NULL
 #' x <- phylo4d(tre, carni70$tab)
 #' table.phylo4d(x)
 #' 
-#' par(mar=rep(.1,4))
+#' oldpar <- par(mar=rep(.1,4))
 #' table.phylo4d(x,cex.lab=.5, show.n=FALSE, ratio=.5)
 #' 
 #' 
@@ -207,8 +206,10 @@ NULL
 #' yrange <- scale(carni70$tab)[,2]
 #' names(yrange) <- row.names(carni70$tab)
 #' orthogram(yrange, tre)
+#' 
+#' par(oldpar)
 #' }
-#' }
+#' 
 #' 
 NULL
 
@@ -247,7 +248,7 @@ NULL
 #' @keywords datasets
 #' @examples
 #' 
-#' \dontrun{
+#' 
 #' if(require(ape) && require(phylobase)){
 #' 
 #' ## see data
@@ -279,7 +280,7 @@ NULL
 #' 
 #' }
 #' }
-#' }
+#' 
 #' 
 NULL
 
@@ -306,7 +307,7 @@ NULL
 #' @keywords datasets
 #' @examples
 #' 
-#' \dontrun{
+#' 
 #' if(require(ape) && require(phylobase)){
 #' 
 #' data(maples)
@@ -333,7 +334,7 @@ NULL
 #' pic.dom <- pic(dom, tre)
 #' cor.test(pic.bif, pic.dom) # correlation is no longer significant
 #' }
-#' }
+#' 
 #' 
 NULL
 
@@ -370,7 +371,7 @@ NULL
 #' @keywords datasets
 #' @examples
 #' 
-#' \dontrun{
+#' 
 #' if(require(ape) && require(phylobase)){
 #' 
 #' data(mjrochet)
@@ -387,7 +388,7 @@ NULL
 #' mjr.tests <- abouheif.moran(mjr, nrep=499)
 #' mjr.tests
 #' 
-#' }
+#' 
 #' }
 #' 
 NULL
@@ -432,7 +433,7 @@ NULL
 #' @keywords datasets
 #' @examples
 #' 
-#' \dontrun{
+#' 
 #' if(require(ape) && require(phylobase)){
 #' 
 #' ## load data, make a tree and a phylo4d object
@@ -443,7 +444,7 @@ NULL
 #' x <- phylo4d(tre, traits)
 #' 
 #' ## plot data
-#' par(mar=rep(.1,4))
+#' oldpar <- par(mar=rep(.1,4))
 #' table.phylo4d(x, cex.lab=.6)
 #' 
 #' ## test phylogenetic autocorrelation
@@ -452,8 +453,9 @@ NULL
 #' phylAutoTests <- gearymoran(prox, traits[,-3], nrep=499)
 #' plot(phylAutoTests)
 #' }
+#' par(oldpar)
 #' }
-#' }
+#' 
 #' 
 NULL
 
@@ -490,17 +492,18 @@ NULL
 #' @keywords datasets
 #' @examples
 #' 
-#' \dontrun{
+#' 
 #' if(require(ape) && require(phylobase)){
 #' 
 #' ## load data, make tree and phylo4d object
 #' data(procella)
 #' tre <- read.tree(text=procella$tre)
 #' x <- phylo4d(tre, procella$traits)
-#' par(mar=rep(.1,4))
+#' oldpar <- par(mar=rep(.1,4))
 #' table.phylo4d(x,cex.lab=.7)
+#' par(oldpar)
 #' }
-#' }
+#' 
 #' 
 NULL
 
@@ -543,7 +546,7 @@ NULL
 #' @keywords datasets
 #' @examples
 #' 
-#' \dontrun{
+#' 
 #' if(require(ape) && require(phylobase)){
 #' 
 #' data(tithonia)
@@ -553,11 +556,11 @@ NULL
 #' 
 #' ## build a phylo4d object
 #' x <- phylo4d(tre, traits)
-#' par(mar=rep(.1,4))
+#' oldpar <- par(mar=rep(.1,4))
 #' table.phylo4d(x)
+#' par(oldpar)
+#' }
 #' 
-#' }
-#' }
 #' 
 NULL
 
@@ -591,7 +594,7 @@ NULL
 #' @keywords datasets
 #' @examples
 #' 
-#' \dontrun{
+#' 
 #' if(require(ape) && require(phylobase)){
 #' ## load data
 #' data(ungulates)
@@ -611,7 +614,7 @@ NULL
 #' ## test phylogenetic inertia in residuals
 #' orthogram(residuals(lm1), x) 
 #' }
-#' }
+#' 
 #' 
 NULL
 

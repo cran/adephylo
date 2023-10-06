@@ -29,13 +29,7 @@ search()
 
 
 ###################################################
-### code chunk number 5: adephylo.Rnw:164-165 (eval = FALSE)
-###################################################
-## options(htmlhelp = FALSE)
-
-
-###################################################
-### code chunk number 6: readTree
+### code chunk number 5: readTree
 ###################################################
 data(ungulates)
 ungulates$tre
@@ -45,7 +39,7 @@ plot(myTree, main="ape's plotting of a tree")
 
 
 ###################################################
-### code chunk number 7: adephylo.Rnw:211-216
+### code chunk number 6: adephylo.Rnw:203-208
 ###################################################
 temp <- as(myTree, "phylo4")
 class(temp)
@@ -55,7 +49,7 @@ all.equal(temp, myTree)
 
 
 ###################################################
-### code chunk number 8: phylo4d
+### code chunk number 7: phylo4d
 ###################################################
 ung <- phylo4d(myTree, ungulates$tab)
 class(ung)
@@ -63,14 +57,14 @@ table.phylo4d(ung)
 
 
 ###################################################
-### code chunk number 9: adephylo.Rnw:256-258
+### code chunk number 8: adephylo.Rnw:248-250
 ###################################################
 x <- tdata(ung, type="tip")
 head(x)
 
 
 ###################################################
-### code chunk number 10: moranI
+### code chunk number 9: moranI
 ###################################################
 W <- proxTips(myTree, met="Abouheif")
 moran.idx(tdata(ung, type="tip")$afbw, W)
@@ -78,7 +72,7 @@ moran.idx(tdata(ung, type="tip")[,1], W, addInfo=TRUE)
 
 
 ###################################################
-### code chunk number 11: adephylo.Rnw:305-317
+### code chunk number 10: adephylo.Rnw:297-309
 ###################################################
 afbw <- tdata(ung, type="tip")$afbw
 sim <- replicate(499, moran.idx(sample(afbw), W)) # permutations
@@ -95,7 +89,7 @@ abline(v=sim[1], col="red", lwd=3)
 
 
 ###################################################
-### code chunk number 12: abouheif
+### code chunk number 11: abouheif
 ###################################################
 ung.abTests <- abouheif.moran(ung)
 ung.abTests
@@ -103,49 +97,49 @@ plot(ung.abTests)
 
 
 ###################################################
-### code chunk number 13: adephylo.Rnw:361-363
+### code chunk number 12: adephylo.Rnw:353-355
 ###################################################
 hasEdgeLength(ung)
 myTree.withBrLe <- compute.brlen(myTree)
 
 
 ###################################################
-### code chunk number 14: adephylo.Rnw:369-371
+### code chunk number 13: adephylo.Rnw:361-363
 ###################################################
 myProx <- vcv.phylo(myTree.withBrLe)
 abouheif.moran(ung, W=myProx)
 
 
 ###################################################
-### code chunk number 15: adephylo.Rnw:398-400
+### code chunk number 14: adephylo.Rnw:390-392
 ###################################################
 x <- as(rtree(5),"phylo4")
 plot(x,show.n=TRUE)
 
 
 ###################################################
-### code chunk number 16: adephylo.Rnw:403-405
+### code chunk number 15: adephylo.Rnw:395-397
 ###################################################
 x.part <- treePart(x)
 x.part
 
 
 ###################################################
-### code chunk number 17: adephylo.Rnw:408-410
+### code chunk number 16: adephylo.Rnw:400-402
 ###################################################
 temp <- phylo4d(x, x.part)
 table.phylo4d(temp, cent=FALSE, scale=FALSE)
 
 
 ###################################################
-### code chunk number 18: adephylo.Rnw:420-422
+### code chunk number 17: adephylo.Rnw:412-414
 ###################################################
 args(treePart)
 temp <- phylo4d(x, treePart(x, result="orthobasis") )
 
 
 ###################################################
-### code chunk number 19: orthobas1
+### code chunk number 18: orthobas1
 ###################################################
 temp <- phylo4d(myTree, treePart(myTree, result="orthobasis") )
 par(mar=rep(.1,4))
@@ -153,20 +147,20 @@ table.phylo4d(temp, repVar=1:8, ratio.tree=.3)
 
 
 ###################################################
-### code chunk number 20: orthogram
+### code chunk number 19: orthogram
 ###################################################
 afbw.ortgTest <- orthogram(afbw, myTree)
 afbw.ortgTest
 
 
 ###################################################
-### code chunk number 21: adephylo.Rnw:468-469
+### code chunk number 20: adephylo.Rnw:460-461
 ###################################################
 me.phylo(myTree.withBrLe)
 
 
 ###################################################
-### code chunk number 22: figFourBas
+### code chunk number 21: figFourBas
 ###################################################
 ung.listBas <- list()
 ung.listBas[[1]] <- phylo4d(myTree, as.data.frame(me.phylo(myTree.withBrLe, method="patristic")))
@@ -178,7 +172,7 @@ invisible(lapply(ung.listBas, table.phylo4d, repVar=1:5, cex.sym=.7, show.tip.la
 
 
 ###################################################
-### code chunk number 23: lm1
+### code chunk number 22: lm1
 ###################################################
 afbw <- log(ungulates$tab[,1])
 neonatw <- log((ungulates$tab[,2]+ungulates$tab[,3])/2)
@@ -191,7 +185,7 @@ anova(lm1)
 
 
 ###################################################
-### code chunk number 24: resid
+### code chunk number 23: resid
 ###################################################
 resid <- residuals(lm1)
 names(resid) <- myTree$tip.label
@@ -201,7 +195,7 @@ table.phylo4d(temp)
 
 
 ###################################################
-### code chunk number 25: adephylo.Rnw:522-529
+### code chunk number 24: adephylo.Rnw:514-521
 ###################################################
 myBasis <- me.phylo(myTree, method="Abouheif")
 lm2 <- lm(neonatw~myBasis[,1] + afbw)
@@ -213,7 +207,7 @@ anova(lm2)
 
 
 ###################################################
-### code chunk number 26: adephylo.Rnw:555-560
+### code chunk number 25: adephylo.Rnw:547-552
 ###################################################
 W <- proxTips(myTree, method="Abouheif", sym=FALSE)
 lagNeonatw <- W %*% neonatw
@@ -223,7 +217,7 @@ abouheif.moran(resid,W)
 
 
 ###################################################
-### code chunk number 27: pca1
+### code chunk number 26: pca1
 ###################################################
 f1 <- function(x){
     m <- mean(x,na.rm=TRUE)
@@ -238,7 +232,7 @@ barplot(pca1$eig, main="PCA eigenvalues", col=heat.colors(16))
 
 
 ###################################################
-### code chunk number 28: pca2
+### code chunk number 27: pca2
 ###################################################
 tre <- read.tree(text=maples$tre)
 W <- proxTips(tre)
@@ -249,7 +243,7 @@ table.phylo4d(myComp.4d)
 
 
 ###################################################
-### code chunk number 29: aboutest
+### code chunk number 28: aboutest
 ###################################################
 myTest <- abouheif.moran(myComp[,1], W=W)
 plot(myTest, main="Abouheif's test using patristic proximity")
@@ -257,7 +251,7 @@ mtext("First principal component - maples data", col="blue", line=1)
 
 
 ###################################################
-### code chunk number 30: loadings
+### code chunk number 29: loadings
 ###################################################
 ldgs <- pca1$c1[,1]
 plot(ldgs, type="h", xlab="Variable", xaxt="n", ylab="Loadings")
